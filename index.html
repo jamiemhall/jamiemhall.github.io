@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
   <meta name="description" content="Jamie Hall. Data professional working at the intersection of AI, Python, and SQL.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --blue: #7AA2F7;
@@ -30,8 +33,15 @@
       --tm-dim: #414868;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     /* ================================================================
        HERO — Terminal dark
@@ -55,8 +65,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(122,162,247,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(122,162,247,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(122, 162, 247, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(122, 162, 247, 0.03) 1px, transparent 1px);
       background-size: 32px 32px;
       pointer-events: none;
     }
@@ -72,6 +82,7 @@
       font-size: 12px;
       line-height: 1.65;
       color: var(--tm-text);
+      text-align: left;
       pointer-events: none;
       opacity: 0;
     }
@@ -88,10 +99,21 @@
       animation: fadeIn 1s ease 1.8s forwards;
     }
 
-    .hero-code .kw { color: var(--purple); }
-    .hero-code .fn { color: var(--blue); }
-    .hero-code .str { color: var(--amber); }
-    .hero-code .al { color: var(--green); }
+    .hero-code .kw {
+      color: var(--purple);
+    }
+
+    .hero-code .fn {
+      color: var(--blue);
+    }
+
+    .hero-code .str {
+      color: var(--amber);
+    }
+
+    .hero-code .al {
+      color: var(--green);
+    }
 
     /* Fieldnotes snippet floating top-right */
     .hero-fn {
@@ -106,13 +128,20 @@
       font-size: 12px;
       line-height: 1.65;
       color: var(--fn-ink);
+      text-align: left;
       pointer-events: none;
       opacity: 0;
       animation: fadeIn 1s ease 2.0s forwards;
     }
 
-    .hero-fn .kw { color: var(--purple); font-weight: 600; }
-    .hero-fn .fn { color: var(--blue); }
+    .hero-fn .kw {
+      color: var(--purple);
+      font-weight: 600;
+    }
+
+    .hero-fn .fn {
+      color: var(--blue);
+    }
 
     .hero-fn-ann {
       position: absolute;
@@ -158,7 +187,10 @@
       animation: fadeUp 0.6s ease 0.6s forwards;
     }
 
-    .hero-role strong { color: var(--amber); font-weight: 600; }
+    .hero-role strong {
+      color: var(--amber);
+      font-weight: 600;
+    }
 
     .hero-tools {
       font-family: 'JetBrains Mono', monospace;
@@ -279,7 +311,10 @@
       margin-bottom: 18px;
     }
 
-    .about-text strong { color: var(--fn-ink); font-weight: 600; }
+    .about-text strong {
+      color: var(--fn-ink);
+      font-weight: 600;
+    }
 
     .about-code {
       background: var(--fn-code-bg);
@@ -289,12 +324,22 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
       line-height: 2.2;
+      text-align: left;
       margin: 28px 0;
     }
 
-    .about-code .arrow { color: var(--blue); }
-    .about-code .label { color: var(--purple); font-weight: 600; }
-    .about-code .desc { color: var(--fn-muted); }
+    .about-code .arrow {
+      color: var(--blue);
+    }
+
+    .about-code .label {
+      color: var(--purple);
+      font-weight: 600;
+    }
+
+    .about-code .desc {
+      color: var(--fn-muted);
+    }
 
     .about-note {
       font-family: 'Caveat', cursive;
@@ -326,7 +371,9 @@
       transition: color 0.2s;
     }
 
-    .site-footer a:hover { color: var(--amber); }
+    .site-footer a:hover {
+      color: var(--amber);
+    }
 
     .footer-links {
       display: flex;
@@ -345,33 +392,75 @@
        ANIMATIONS
        ================================================================ */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 0.5; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 0.5;
+      }
     }
 
     @keyframes bob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(5px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(5px);
+      }
     }
 
     /* ================================================================
        MOBILE
        ================================================================ */
     @media (max-width: 640px) {
-      .hero { padding: 48px 20px; }
-      .hero-code, .hero-fn, .hero-fn-ann { display: none; }
-      .hero-links { flex-direction: column; gap: 12px; }
-      .about { padding: 64px 20px; }
-      .about-code { font-size: 12px; padding: 16px 18px; }
-      .footer-links { flex-direction: column; gap: 12px; }
+      .hero {
+        padding: 48px 20px;
+      }
+
+      .hero-code,
+      .hero-fn,
+      .hero-fn-ann {
+        display: none;
+      }
+
+      .hero-links {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .about {
+        padding: 64px 20px;
+      }
+
+      .about-code {
+        font-size: 12px;
+        padding: 16px 18px;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 12px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- HERO -->
@@ -387,7 +476,8 @@
     <div class="hero-code hero-code-2">
       <span class="kw">class</span> <span class="fn">Pipeline</span>:<br>
       &nbsp;&nbsp;<span class="kw">def</span> <span class="fn">validate</span>(self, row):<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">assert</span> row.id <span class="kw">is not</span> <span class="al">None</span>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">assert</span> row.id <span class="kw">is not</span> <span
+        class="al">None</span>
     </div>
 
     <div class="hero-fn">
@@ -433,10 +523,14 @@
       </p>
 
       <div class="about-code">
-        <span class="arrow">→</span> <span class="label">sql</span> <span class="desc">— query craft, database design, the boring stuff that matters</span><br>
-        <span class="arrow">→</span> <span class="label">python</span> <span class="desc">— patterns, libraries, making pipelines less painful</span><br>
-        <span class="arrow">→</span> <span class="label">ai</span> <span class="desc">— LLMs for real data problems, not demos</span><br>
-        <span class="arrow">→</span> <span class="label">strategy</span> <span class="desc">— governance, ownership, the human side of data</span>
+        <span class="arrow">→</span> <span class="label">sql</span> <span class="desc">— query craft, database design,
+          the boring stuff that matters</span><br>
+        <span class="arrow">→</span> <span class="label">python</span> <span class="desc">— patterns, libraries, making
+          pipelines less painful</span><br>
+        <span class="arrow">→</span> <span class="label">ai</span> <span class="desc">— LLMs for real data problems, not
+          demos</span><br>
+        <span class="arrow">→</span> <span class="label">strategy</span> <span class="desc">— governance, ownership, the
+          human side of data</span>
       </div>
 
       <div class="about-note">
@@ -455,4 +549,5 @@
   </footer>
 
 </body>
+
 </html>
