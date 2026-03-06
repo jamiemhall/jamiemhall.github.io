@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jamie Hall — Building data systems that actually work</title>
+  <meta name="description" content="Jamie Hall. Data professional working at the intersection of AI, Python, and SQL.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #7AA2F7;
+      --purple: #BB9AF7;
+      --amber: #E0AF68;
+      --green: #9ECE6A;
+      --coral: #F7768E;
+
+      --fn-bg: #FBF7F0;
+      --fn-ink: #2D2926;
+      --fn-muted: #78716C;
+      --fn-grid: #E5E0D8;
+      --fn-code-bg: #F3EDE4;
+
+      --tm-bg: #1A1B26;
+      --tm-text: #C0CAF5;
+      --tm-muted: #565F89;
+      --tm-code-bg: #16161E;
+      --tm-border: #292E42;
+      --tm-dim: #414868;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ================================================================
+       HERO — Terminal dark
+       ================================================================ */
+    .hero {
+      background: var(--tm-bg);
+      color: var(--tm-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 48px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(122,162,247,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(122,162,247,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* Floating code snippets — decorative, fade in */
+    .hero-code {
+      position: absolute;
+      background: var(--tm-code-bg);
+      border: 1px solid var(--tm-border);
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--tm-text);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .hero-code-1 {
+      top: 12%;
+      left: 5%;
+      animation: fadeIn 1s ease 1.4s forwards;
+    }
+
+    .hero-code-2 {
+      bottom: 14%;
+      right: 5%;
+      animation: fadeIn 1s ease 1.8s forwards;
+    }
+
+    .hero-code .kw { color: var(--purple); }
+    .hero-code .fn { color: var(--blue); }
+    .hero-code .str { color: var(--amber); }
+    .hero-code .al { color: var(--green); }
+
+    /* Fieldnotes snippet floating top-right */
+    .hero-fn {
+      position: absolute;
+      top: 10%;
+      right: 6%;
+      background: var(--fn-bg);
+      border: 1px solid var(--fn-grid);
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--fn-ink);
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeIn 1s ease 2.0s forwards;
+    }
+
+    .hero-fn .kw { color: var(--purple); font-weight: 600; }
+    .hero-fn .fn { color: var(--blue); }
+
+    .hero-fn-ann {
+      position: absolute;
+      top: 22%;
+      right: 5%;
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      color: var(--blue);
+      transform: rotate(-2deg);
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeIn 1s ease 2.2s forwards;
+    }
+
+    .hero-accent {
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--blue));
+      border-radius: 2px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(44px, 8vw, 72px);
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+
+    .hero-role {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--tm-text);
+      max-width: 540px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.6s forwards;
+    }
+
+    .hero-role strong { color: var(--amber); font-weight: 600; }
+
+    .hero-tools {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(12px, 1.5vw, 14px);
+      color: var(--tm-muted);
+      letter-spacing: 3px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.8s forwards;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1.0s forwards;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--tm-text);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      padding: 10px 24px;
+      border: 1px solid var(--tm-border);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .hero-link:hover {
+      border-color: var(--blue);
+      background: rgba(122, 162, 247, 0.06);
+      color: var(--blue);
+    }
+
+    .hero-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--tm-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1.2s forwards;
+    }
+
+    .hero-scroll::after {
+      content: '↓';
+      display: block;
+      text-align: center;
+      margin-top: 4px;
+      animation: bob 2s ease-in-out infinite;
+    }
+
+    /* ================================================================
+       ABOUT — Fieldnotes light
+       ================================================================ */
+    .about {
+      background: var(--fn-bg);
+      color: var(--fn-ink);
+      padding: 96px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--fn-grid) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-position: 14px 14px;
+      pointer-events: none;
+    }
+
+    .about-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-label {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      color: var(--blue);
+      transform: rotate(-1deg);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .about-heading {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 24px;
+    }
+
+    .about-text {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--fn-muted);
+      margin-bottom: 18px;
+    }
+
+    .about-text strong { color: var(--fn-ink); font-weight: 600; }
+
+    .about-code {
+      background: var(--fn-code-bg);
+      border: 1px solid var(--fn-grid);
+      border-radius: 8px;
+      padding: 22px 26px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 2.2;
+      margin: 28px 0;
+    }
+
+    .about-code .arrow { color: var(--blue); }
+    .about-code .label { color: var(--purple); font-weight: 600; }
+    .about-code .desc { color: var(--fn-muted); }
+
+    .about-note {
+      font-family: 'Caveat', cursive;
+      font-size: 21px;
+      color: var(--blue);
+      transform: rotate(-1deg);
+      display: inline-block;
+      margin-top: 8px;
+      border-left: 2px solid var(--blue);
+      padding-left: 12px;
+    }
+
+    /* ================================================================
+       FOOTER — Terminal dark
+       ================================================================ */
+    .site-footer {
+      background: var(--tm-bg);
+      color: var(--tm-muted);
+      padding: 36px 24px;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .site-footer a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .site-footer a:hover { color: var(--amber); }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 16px;
+    }
+
+    .footer-copy {
+      color: var(--tm-dim);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+    }
+
+    /* ================================================================
+       ANIMATIONS
+       ================================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 0.5; }
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    /* ================================================================
+       MOBILE
+       ================================================================ */
+    @media (max-width: 640px) {
+      .hero { padding: 48px 20px; }
+      .hero-code, .hero-fn, .hero-fn-ann { display: none; }
+      .hero-links { flex-direction: column; gap: 12px; }
+      .about { padding: 64px 20px; }
+      .about-code { font-size: 12px; padding: 16px 18px; }
+      .footer-links { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <!-- Decorative code fragments -->
+    <div class="hero-code hero-code-1">
+      <span class="kw">SELECT</span> topic, <span class="fn">AVG</span>(score)<br>
+      <span class="kw">FROM</span> posts<br>
+      <span class="kw">GROUP BY</span> topic;
+    </div>
+
+    <div class="hero-code hero-code-2">
+      <span class="kw">class</span> <span class="fn">Pipeline</span>:<br>
+      &nbsp;&nbsp;<span class="kw">def</span> <span class="fn">validate</span>(self, row):<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">assert</span> row.id <span class="kw">is not</span> <span class="al">None</span>
+    </div>
+
+    <div class="hero-fn">
+      <span class="kw">SELECT</span> COUNT(*),<br>
+      &nbsp;&nbsp;<span class="fn">ROUND</span>(100.0 * <span class="fn">COUNT</span>(email)<br>
+      &nbsp;&nbsp;/ <span class="fn">COUNT</span>(*), 1) <span class="kw">AS</span> pct<br>
+      <span class="kw">FROM</span> customers;
+    </div>
+    <div class="hero-fn-ann">← the first thing I check</div>
+
+    <!-- Identity -->
+    <div class="hero-accent"></div>
+    <h1 class="hero-name">Jamie Hall</h1>
+    <p class="hero-role">Building data systems that <strong>actually work</strong></p>
+    <p class="hero-tools">AI · PYTHON · SQL</p>
+
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/jamiemichaelhall/" class="hero-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/jamiemhall" class="hero-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+    </div>
+
+    <a href="#about" class="hero-scroll">scroll</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-label">↳ what I work on</div>
+      <h2 class="about-heading">Data management with modern tools.</h2>
+      <p class="about-text">
+        I work at the intersection of <strong>AI, Python, and SQL</strong> —
+        building the pipelines, writing the queries, and figuring out how to
+        make data useful without overcomplicating things.
+      </p>
+      <p class="about-text">
+        I write about what I learn along the way:
+      </p>
+
+      <div class="about-code">
+        <span class="arrow">→</span> <span class="label">sql</span> <span class="desc">— query craft, database design, the boring stuff that matters</span><br>
+        <span class="arrow">→</span> <span class="label">python</span> <span class="desc">— patterns, libraries, making pipelines less painful</span><br>
+        <span class="arrow">→</span> <span class="label">ai</span> <span class="desc">— LLMs for real data problems, not demos</span><br>
+        <span class="arrow">→</span> <span class="label">strategy</span> <span class="desc">— governance, ownership, the human side of data</span>
+      </div>
+
+      <div class="about-note">
+        writing on LinkedIn · practical over theoretical
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/jamiemichaelhall/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/jamiemhall" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="footer-copy">Jamie Hall</div>
+  </footer>
+
+</body>
+</html>
